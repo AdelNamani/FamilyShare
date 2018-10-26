@@ -76,6 +76,11 @@ class FamilyController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * Search about other family members
+     * @return mixed
+     */
     public function search(Request $request){
         $members=User::where('name','like',"{$request->q}%")->get()->take(3);
         return $members;

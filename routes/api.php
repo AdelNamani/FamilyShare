@@ -27,3 +27,5 @@ Route::post('family/store','FamilyController@store');
 Route::post('family/addMember','FamilyController@addMember');
 
 Route::post('family/search','FamilyController@search');
+
+Route::post('user/update','API\UserController@update');

@@ -61,4 +61,25 @@ class UserController extends Controller
         $user = Auth::user();
         return response()->json(['success' => $user], $this-> successStatus);
     }
+
+    public function update(Request $request){
+        if ($request->hasFile('photo')){
+            $request->validate([
+                'photo' => 'mimes:jpeg,png'
+            ]);
+            $path = request()->file('photo')->store('public/ProfilePics');
+            $paths = explode('/', $path);
+            $realPath=$paths[1] . '/' . $paths[2];
+            $user=auth('api')->user();
+            //$user->photo=asset("storage/".$user->photo);
+            $user->photo=$realPath;
+            if($user->save()){
+                return json_encode(['success'=>'Photo updated']);
+            };
+        }
+        return json_encode(['error'=>'Not updated']);
+
+    }
+
+
 }
