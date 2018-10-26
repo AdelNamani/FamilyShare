@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Family;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class FamilyController extends Controller
 {
@@ -35,7 +38,42 @@ class FamilyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+        ]);
+        $family=new Family();
+        $family->name=$request->name;
+        if ($family->save()){
+            $user=auth('api')->user();
+            $user->id_family=$family->id;
+            //dd($user);
+            $user->save();
+            return json_encode(['success'=>'Family added']);
+        }else{
+            return json_encode(['error'=>'Not added']);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * Add a member to a family
+     * @return string
+     */
+    public function addMember(Request $request){
+        $validator = Validator::make($request->all(), [
+            'id' => 'required',
+            'isParent'=>'required'
+        ]);
+
+        $user=User::find($request->id);
+        $user->id_family=auth('api')->user()->id_family;
+        $user->isParent=$request->isParent;
+        if($user->save()){
+            return json_encode(['success'=>'Member added to family']);
+        }else{
+            return json_encode(['error'=>'Not added']);
+        };
+
     }
 
     /**
