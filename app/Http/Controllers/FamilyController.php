@@ -76,6 +76,11 @@ class FamilyController extends Controller
 
     }
 
+    public function search(Request $request){
+        $members=User::where('name','like',"{$request->q}%")->get()->take(3);
+        return $members;
+    }
+
     /**
      * Display the specified resource.
      *
