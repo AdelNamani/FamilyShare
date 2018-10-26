@@ -29,3 +29,9 @@ Route::post('family/addMember','FamilyController@addMember');
 Route::post('family/search','FamilyController@search');
 
 Route::post('user/update','API\UserController@update');
+
+//Route::resource('Posts','PostController')->only(['store','index','show']);
+
+Route::post('post/store','PostController@store');
+
+Route::get('post/show','PostController@show');
