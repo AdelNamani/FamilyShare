@@ -14,7 +14,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts=Post::where('id_User','=',auth('api')->user()->id)->get();
+        return $posts;
     }
 
 
@@ -43,7 +44,7 @@ class PostController extends Controller
                 return json_encode(['success'=>'Photo updated']);
             };
         }
-        else return json_encode(['error'=>'Not updateddd']);
+        else return json_encode(['error'=>'Not updated']);
     }
 
     /**

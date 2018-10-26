@@ -81,5 +81,10 @@ class UserController extends Controller
 
     }
 
+    public function index(){
+        $users=User::where('id_Family','=',auth('api')->user()->id_family)->get();
+        return $users;
+    }
+
 
 }

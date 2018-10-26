@@ -35,3 +35,11 @@ Route::post('user/update','API\UserController@update');
 Route::post('post/store','PostController@store');
 
 Route::get('post/show','PostController@show');
+
+Route::post('event/store','EventController@store');
+
+Route::get('user/index','API\UserController@index');
+
+Route::get('post/index','PostController@index');
+
+Route::get('event/index','EventController@index');
